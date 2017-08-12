@@ -26,7 +26,7 @@ INC_FILE = minishell.h
 # Fichiers sources
 SRC_PATH = src/
 SRC_FILE = minishell.c
-SRC_BUIL = exit.c
+SRC_BUIL = exit.c echo.c
 SRC_ENV = env.c
 
 # Variables
