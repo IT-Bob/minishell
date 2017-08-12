@@ -18,7 +18,7 @@ void			ft_strdoubleiter(char **doublestr, void (*f)(char *str))
 {
 	int	i;
 
-	if (doublestr)
+	if (doublestr && f)
 	{
 		i = 0;
 		while (doublestr[i])
