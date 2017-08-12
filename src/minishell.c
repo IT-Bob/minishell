@@ -79,18 +79,12 @@ static int	call_command(char *line, char ***environnement, int *exit)
 /*
 ** Remplace les tabulations par des espaces.
 */
-static void	delete_tabulation(char **line)
+static void	delete_tabulation(char *str)
 {
-	int		i;
-	char	*tmp;
-
-	if (line)
+	if (str)
 	{
-		i = -1;
-		tmp = *line;
-		while (tmp[++i])
-			if (tmp[i] == '\t')
-				tmp[i] = ' ';
+		 if (*str == '\t')
+			*str = ' ';
 	}
 }
 
@@ -119,7 +113,7 @@ int		main(void)
 	ft_putstr("$> ");
 	while (!quit && !exit && get_next_line(1, &line) == 1)
 	{
-		delete_tabulation(&line);
+		ft_striter(line, &delete_tabulation);
 		if (!(quit = call_command(line, environnement ? &environnement : NULL, &exit)))
 			ft_putstr("$> ");
 		ft_strdel(&line);
