@@ -1,3 +1,9 @@
+/**
+** \file	minishell.h
+** \author	aguerin42@icloud.com
+** \date	août 2017
+*/
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
