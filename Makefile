@@ -21,7 +21,7 @@ CLIB = -L $(LIBFT) -lft
 
 # Headers
 INC_PATH = includes/
-INC_FILE = # HEADERS DU PROGRAMME #
+INC_FILE = minishell.h
 
 # Fichiers sources
 SRC_PATH = src/
@@ -43,7 +43,7 @@ $(OBJ): $(INC)
 
 $(NAME): Makefile $(OBJ) $(LIB)
 	@echo "$(CYAN)Compilation de $(NAME)$(RESET)"
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(CLIB) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) $(CLIB) -o $(NAME)
 
 clean: del cleanlib
 
