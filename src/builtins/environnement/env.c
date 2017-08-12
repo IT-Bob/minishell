@@ -8,24 +8,6 @@
 #include <unistd.h>
 
 /**
-** \brief	Applique une fonction à chaque chaîne d'un double pointeur sur char.
-**
-** \param	doublestr -	Double chaîne sur laquelle appliquer la fonction.
-** \param	f -			Fonction à appliquer.
-*/
-void			ft_strdoubleiter(char **doublestr, void (*f)(char *str))
-{
-	int	i;
-
-	if (doublestr)
-	{
-		i = 0;
-		while (doublestr[i])
-			f(doublestr[i++]);
-	}
-}
-
-/**
 ** \brief	Affiche de l'environnement.
 **
 ** \param	environnement -	Environnement à afficher.
