@@ -120,5 +120,5 @@ int		main(void)
 	}
 	ft_strdeldouble(environnement);
 	ft_strdel(&line);
-	return ((quit > 0) ? exit : quit);
+	return (exit);
 }
