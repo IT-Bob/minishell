@@ -95,7 +95,8 @@ static void	delete_tabulation(char *str)
 ** grâce à la variable externe 'environ'.\n
 ** Pour quitter, l'utilisateur doit utiliser la commande 'exit'.
 **
-** \return	0 -	Arrêt normal du programme.
+** \return	0 -	Arrêt normal du programme ou autre valeur donnée par exit
+**				(ft_exit()).
 */
 int		main(void)
 {
