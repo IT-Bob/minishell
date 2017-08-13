@@ -99,7 +99,7 @@ normeall: norme
 doxygen:
 	@echo "$(CYAN)Génération de la documentation de $(PROJET)$(RESET)"
 	@mkdir -p Docs
-	@doxygen ../Doxygen_config/$(PROJET).doxyconf > Docs/$(PROJET).log
+	@doxygen $(PROJET).doxyconf > Docs/$(PROJET).log
 
 cleandoxy:
 	@echo "Suppression de la documentation de $(PROJET)"
