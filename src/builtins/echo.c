@@ -2,16 +2,18 @@
 ** \file	echo.c
 ** \author	aguerin42@icloud.com
 ** \date	août 2017
+**
+** \brief	Fonctions pour le builtin echo().
 */
 
 #include "minishell.h"
 
 /**
-** \brief Affiche sur l'entrée standard.
+** \brief	Affiche sur l'entrée standard.
 **
 ** Prend une chaîne de caractères en entrée et l'affiche sur la sortie standard.
 **
-** \param argv -	Chaîne de caractères à afficher.
+** \param	argv -	Chaîne de caractères à afficher.
 */
 void	echo(char **argv)
 {
