@@ -22,6 +22,6 @@ char	**set_new_env(char **environ);
 
 int		ft_exit(char **argv, int *exit);
 
-int		exec(char **argv, char **old_env, char **new_env);
+int		exec(char **argv, char ***old_env, char ***new_env);
 #endif
 

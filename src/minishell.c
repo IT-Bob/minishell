@@ -7,8 +7,6 @@
 #include "minishell.h"
 #include "get_next_line.h"
 
-#include "ft_printf.h"
-
 /**
 ** \brief	Lancement de fonction.
 **
@@ -42,7 +40,7 @@ int			launch(char **argv, char ***old_env, char ***new_env, int *exit)
 		else if (ft_strequ(argv[0], "cd"))
 			ft_putendl(argv[0]);
 		else
-			ft_printf("Lancement de %s\n", argv[0]);
+			exec(argv, old_env, new_env);
 	}
 	return (0);
 }

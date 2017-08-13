@@ -24,8 +24,9 @@
 ** \return	0 -	L'exécutable a pu être trouvé et lancé.
 ** \return	1 -	L'exécutable n'a pu être trouvé ou lancé.
 */
-int	exec(char **argv, char **old_env, char **new_env)
+int	exec(char **argv, char ***old_env, char ***new_env)
 {
+	ft_putendl("EXEC");
 	if (argv && old_env)
 	{
 		if (!new_env)
