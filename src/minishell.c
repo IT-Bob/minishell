@@ -49,6 +49,7 @@ int			launch(char **argv, char ***old_env, char ***new_env, int *exit)
 
 /*
 ** Sépare les différentes commandes et les lance.
+** exit peut être initalisé à NULL.
 */
 static int	call_command(char *line, char ***environnement, int *exit)
 {
