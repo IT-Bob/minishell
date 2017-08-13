@@ -98,11 +98,11 @@ int	exec(char **argv, char ***old_env, char ***new_env)
 		else
 		{
 			if (argv[0][0] && (argv[0][0] == '/' || ft_strnequ(argv[0], "./", 2)))
-				execve(argv[0], argv, new_env[0]);
+				return (execve(argv[0], argv, new_env[0]));
 			else
 				return (search_exec(argv, old_env, new_env));
 		}
 	}
-	return (1);
+	return (0);
 }
 
