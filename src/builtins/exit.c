@@ -12,7 +12,7 @@
 ** \param	argv -	Fonction exit et ses paramètres.
 ** \param	exit -	Valeur à renvoyer au moment de quitter le programme.
 **
-** \return	1 - Renvoie 1 à la fonction principale pour quitter.
+** \return	1 - Valeur pour indiquer à la fonction principale de quitter.
 */
 int			ft_exit(char **argv, int *exit)
 {

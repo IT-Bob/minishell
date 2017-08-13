@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 /**
-** \brief	Affiche de l'environnement.
+** \brief	Affiche l'environnement.
 **
 ** \param	environnement -	Environnement à afficher.
 */
