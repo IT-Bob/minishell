@@ -40,11 +40,7 @@ int			launch(char **argv, char ***old_env, char ***new_env, int *exit)
 		else if (ft_strequ(argv[0], "cd"))
 			ft_putendl(argv[0]);
 		else
-			if (exec(argv, old_env, new_env))
-			{
-				ft_putstr_fd("Minishell : Commande introuvable : ", 2);
-				ft_putendl_fd(argv[0], 2);
-			}
+			exec(argv, old_env, new_env);
 	}
 	return (0);
 }

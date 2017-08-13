@@ -39,6 +39,21 @@ static int	find_var(char *var, char **environnement)
 	return (-1);
 }
 
+static char	*cut_path(char *path)
+{
+	char	*tmp;
+
+	if (path)
+	{
+		tmp = ft_strchr(path, ':');
+		if (tmp)
+			return (ft_strsub(path, 0, tmp - path));
+		else
+			return (ft_strsub(path, 0, ft_strlen(path)));
+	}
+	return (NULL);
+}
+
 /*
 ** Cherche l'exécutable dans le PATH de l'environnement.
 */
@@ -46,22 +61,23 @@ static int	search_exec(char **argv, char ***old_env, char ***new_env)
 {
 	int		i;
 	char	*tmp;
-	char	*cut;
 	char	*path;
 
 	if (argv && old_env && new_env)
 	{
 		i = find_var("PATH", old_env[0]);
 		path = ((i >= 0) ? old_env[0][i] : NULL);
-		if (path && (tmp = ft_strchr(path, '=')))
-			path = tmp + 1;
-		tmp = NULL;
+		if (path && (path = ft_strchr(path, '=')))
+			path = path + 1;
 		if (path)
 		{
-			cut = ft_strchr(path, ':');
-			tmp = (cut ? ft_strsub(path, 0, cut - path) : path);
-			ft_putendl(tmp);
-			return (0);
+			while ((tmp = cut_path(path)))
+			{
+				ft_putendl(tmp);
+				ft_strdel(&tmp);
+				if ((path = ft_strchr(path, ':')))
+					path = path + 1;
+			}
 		}
 		else
 			return (ft_printf("minishell : Commande inconnue : %s\n", argv[0]));
@@ -82,11 +98,12 @@ static int	search_exec(char **argv, char ***old_env, char ***new_env)
 **						Peut être identique à old_env.
 **						Si NULL, old_env est utilisé à la place.
 **
-** \return	0 -	L'exécutable a pu être trouvé et lancé.
-** \return	1 -	L'exécutable n'a pu être trouvé ou lancé.
+** \return	0 si l'exécutable a pu être trouvé et lancé
+**				ou une autre valeur sinon.
 */
 int	exec(char **argv, char ***old_env, char ***new_env)
 {
+	int		ret;
 	pid_t	f;
 
 	if (argv && argv[0] && old_env)
@@ -98,9 +115,15 @@ int	exec(char **argv, char ***old_env, char ***new_env)
 		else
 		{
 			if (argv[0][0] && (argv[0][0] == '/' || ft_strnequ(argv[0], "./", 2)))
-				return (execve(argv[0], argv, new_env[0]));
+				ret = execve(argv[0], argv, new_env[0]);
 			else
-				return (search_exec(argv, old_env, new_env));
+				ret = search_exec(argv, old_env, new_env);
+			if (ret)
+			{
+				ft_putstr_fd("Minishell : Commande introuvable : ", 2);
+				ft_putendl_fd(argv[0], 2);
+			}
+			exit(0);
 		}
 	}
 	return (0);
