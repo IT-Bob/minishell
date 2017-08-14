@@ -18,7 +18,7 @@
 */
 int			ft_exit(char **argv, int *exit)
 {
-	if (argv)
+	if (argv && exit)
 	{
 		*exit = 0;
 		if (argv[1])

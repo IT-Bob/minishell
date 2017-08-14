@@ -25,12 +25,12 @@
 */
 int			launch(char **argv, char ***old_env, char ***new_env, int *exit)
 {
-	if (argv && argv[0] && old_env && new_env)
+	if (argv && argv[0])
 	{
 		if (ft_strequ(argv[0], "exit"))
 			return (ft_exit(argv, exit));
 		else if (ft_strequ(argv[0], "env"))
-			env(new_env[0]);
+			env(argv, old_env, new_env);
 		else if (ft_strequ(argv[0], "setenv"))
 			ft_putendl(argv[0]);
 		else if (ft_strequ(argv[0], "unsetenv"))
@@ -57,7 +57,7 @@ static int	call_command(char *line, char ***environnement, int *exit)
 	char	**argv;
 
 	quit = 0;
-	if (line && environnement)
+	if (line)
 	{
 		i = -1;
 		if (!(commands = ft_strsplit(line, ';')))
@@ -111,7 +111,7 @@ int		main(void)
 	if (!(environnement = set_new_env(environ)))
 		ft_putendl_fd("minishell : Erreur de création d'environnement", 2);
 	ft_putstr("$> ");
-	while (!quit && !exit && get_next_line(1, &line) == 1)
+	while (!quit && !exit && get_next_line(1, &line) > 0)
 	{
 		ft_striter(line, &delete_tabulation);
 		if (!(quit = call_command(line, environnement ? &environnement : NULL, &exit)))
