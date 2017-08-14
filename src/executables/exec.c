@@ -79,8 +79,6 @@ static int	search_exec(char **argv, char ***old_env, char ***new_env)
 					path = path + 1;
 			}
 		}
-		else
-			return (ft_printf("minishell : Commande inconnue : %s\n", argv[0]));
 	}
 	return (1);
 }

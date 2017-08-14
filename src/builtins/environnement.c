@@ -48,34 +48,42 @@ static char	**alloc_environnement(unsigned int size)
 /**
 ** \brief	Copie d'un environnement existant.
 **
-** Alloue un nouvel environnement et y copie toutes les variables de l'ancien.
-**
+** Alloue un nouvel environnement et y copie toutes les variables de l'ancien.\n
+** Si la taille du nouvel environnement n'est pas suffisante, la copie n'est
+** pas effectuée en entier.
+
 ** \param	old_env -	L'environnement à copier dans le nouveau.
+** \param	len -		La taille du nouvel environnement.
 **
 ** \return	L'environnement copié ou NULL en cas d'erreur.
 */
 
-char	**copy_env(char **old_env)
+char	**copy_env(char **old_env, unsigned int len)
 {
-	char	**environnement;
 	int		size;
 	int		i;
+	char	**new_env;
 
-	environnement = NULL;
+	new_env = 0;
 	if (old_env)
 	{
 		size = ft_strlendouble(old_env);
 		i = -1;
-		if ((environnement = alloc_environnement(size)))
-			while (++i < size)
-				if (!(environnement[i] = ft_strdup(old_env[i])))
+		if ((new_env = alloc_environnement(len)))
+		{
+			while (++i < size && i < len)
+				if (!(new_env[i] = ft_strdup(old_env[i])))
 				{
-					ft_putendl_fd("copy_env : Erreur d'allocation", 2);
-					ft_strdeldouble(environnement);
+					ft_putendl_fd(\
+					"Minishell : copy_env : Erreur d'allocation", 2);
+					ft_strdeldouble(new_env);
 					return (NULL);
 				}
+		}
+		else
+			ft_putendl_fd("minishell : copy_env : Erreur d'allocation", 2);
 	}
-	return (environnement);
+	return (new_env);
 }
 
 /**
@@ -99,13 +107,14 @@ char	**create_env()
 	{
 		if (!(environnement[0] = ft_strdup("PATH=/usr/local/bin:/usr/bin:\
 /bin:/usr/sbin/:/sbin:/usr/local/munki")))
-			ft_putendl_fd("create_env() : Erreur d'all!ocation", 2);
+			ft_putendl_fd("minishell : create_env() : Erreur d'allocation", 2);
 		if (!(environnement[1] = ft_strdup("SHLVL=1")))
-			ft_putendl_fd("create_env() : Erreur d'allocation", 2);
+			ft_putendl_fd("minishell : create_env() : Erreur d'allocation", 2);
 		if (!(pwd = getcwd(NULL, 0)))
-			ft_putendl_fd("create_env() : Erreur de création de PWD", 2);
+			ft_putendl_fd(\
+			"minishell : create_env() : Erreur de création de PWD", 2);
 		if (!(environnement[2] = ft_strjoin("PWD=", pwd)))
-			ft_putendl_fd("create_env() : Erreur d'allocation", 2);
+			ft_putendl_fd("minishell : create_env() : Erreur d'allocation", 2);
 		ft_strdel(&pwd);
 	}
 	return (environnement);
@@ -125,7 +134,7 @@ char	**set_new_env(char **environ)
 	char	**environnement;
 
 	if (environ && environ[0])
-		environnement = copy_env(environ);
+		environnement = copy_env(environ, ft_strlendouble(environ));
 	else
 		environnement = create_env();
 	return (environnement);

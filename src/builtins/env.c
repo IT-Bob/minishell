@@ -30,10 +30,9 @@ static void	print_env(char **environnement)
 ** - Préciser une ou plusieurs variables permet de la/les modifier
 **	temporairement lors de l'appel à un exécutable.
 **
-** \param	environnement
-**
-**
-**
+** \param	argv -		Commande env et ses paramètres.
+** \param	old_env -	Ancien environnement.
+** \param	new_env -	Nouvel environnement.
 */
 void		env(char **argv, char ***old_env, char ***new_env)
 {

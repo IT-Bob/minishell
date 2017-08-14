@@ -9,11 +9,11 @@
 #include "minishell.h"
 
 /**
-** \brief	Affiche sur l'entrée standard.
+** \brief	Affichage sur la sortie standard.
 **
 ** Prend une chaîne de caractères en entrée et l'affiche sur la sortie standard.
 **
-** \param	argv -	Chaîne de caractères à afficher.
+** \param	argv -	Commande echo et la chaîne de caractères à afficher.
 */
 void	echo(char **argv)
 {
