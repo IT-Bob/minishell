@@ -13,6 +13,28 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
+static char	*add_slash(char *path)
+{
+	int		len;
+	char	*tmp;
+
+	if (path)
+	{
+		len = ft_strlen(path);
+		if (path[len - 1] != '/')
+		{
+			if (!(tmp = ft_strjoin(path, "/")))
+				ft_putendl_fd("minishell : erreur d'allocatin", 2);
+			else
+			{
+				ft_strdel(&path);
+				path = tmp;
+			}
+		}
+	}
+	return (path);
+}
+
 static char	*cut_path(char *path)
 {
 	char	*tmp;
@@ -21,9 +43,10 @@ static char	*cut_path(char *path)
 	{
 		tmp = ft_strchr(path, ':');
 		if (tmp)
-			return (ft_strsub(path, 0, tmp - path));
+			tmp = ft_strsub(path, 0, tmp - path);
 		else
-			return (ft_strsub(path, 0, ft_strlen(path)));
+			tmp = ft_strsub(path, 0, ft_strlen(path));
+		return (add_slash(tmp));
 	}
 	return (NULL);
 }
