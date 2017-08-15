@@ -27,14 +27,16 @@ int			launch(char **argv, char ***old_env, char ***new_env, int *exit)
 {
 	if (argv && argv[0])
 	{
+		if (!new_env)
+			new_env = old_env;
 		if (ft_strequ(argv[0], "exit"))
 			return (ft_exit(argv, exit));
 		else if (ft_strequ(argv[0], "env"))
 			env(&argv[1], old_env[0], new_env[0]);
 		else if (ft_strequ(argv[0], "setenv"))
-			ft_setenv(&argv[1], new_env);
+			ft_setenv(&argv[1], old_env);
 		else if (ft_strequ(argv[0], "unsetenv"))
-			ft_putendl(argv[0]);
+			ft_unsetenv(&argv[1], old_env);
 		else if (ft_strequ(argv[0], "echo"))
 			echo(argv);
 		else if (ft_strequ(argv[0], "cd"))

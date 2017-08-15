@@ -26,6 +26,7 @@ int		find_var(char *var, char **environnement);
 int		ft_exit(char **argv, int *exit);
 
 int		ft_setenv(char **argv, char ***environnement);
+int		ft_unsetenv(char **argv, char ***environnement);
 
 int		exec(char **argv, char ***old_env, char ***new_env);
 
