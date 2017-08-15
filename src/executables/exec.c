@@ -75,7 +75,8 @@ static int	search_exec(char **argv, char ***environnement, char *old_path)
 		{
 			while ((tmp = cut_path(path)))
 			{
-				ft_putendl(tmp);
+				tmp = ft_strfreejoin(tmp, argv[0]);
+				execve(tmp, argv, environnement[0]);
 				ft_strdel(&tmp);
 				if ((path = ft_strchr(path, ':')))
 					path = path + 1;
