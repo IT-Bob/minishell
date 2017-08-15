@@ -38,7 +38,7 @@ static int	launch(char **argv, char ***environnement, int *exit)
 		else if (ft_strequ(argv[0], "echo"))
 			echo(argv);
 		else if (ft_strequ(argv[0], "cd"))
-			ft_putendl(argv[0]);
+			cd(&argv[1], environnement);
 		else
 			exec(argv, environnement, NULL);
 	}

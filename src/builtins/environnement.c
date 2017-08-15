@@ -36,6 +36,22 @@ int	find_var(char *var, char **environnement)
 	return (-1);
 }
 
+char	*get_var(char *var, char **environnement)
+{
+	int		i;
+	char	*variable;
+
+	variable = NULL;
+	if (var && environnement)
+		if ((i = find_var(var, environnement)) >= 0)
+		{
+			variable = environnement[i];
+			if ((variable = ft_strchr(variable, '=')))
+				variable++;
+		}
+	return (variable);
+}
+
 /**
 ** \brief	Calcul la longueur de la première dimension d'un double pointeur
 **			sur char.

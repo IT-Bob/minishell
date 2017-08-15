@@ -11,6 +11,8 @@
 
 # include "libft.h"
 
+int	cd(char **argv, char ***environnement);
+
 void	echo(char **argv);
 
 void	env(char **argv, char **environnement);
@@ -22,6 +24,7 @@ char	**set_new_env(char **environ);
 char	**alloc_environnement(unsigned int size);
 int		ft_strlendouble(char **doublestr);
 int		find_var(char *var, char **environnement);
+char	*get_var(char *var, char **environnement);
 
 int		ft_exit(char **argv, int *exit);
 
