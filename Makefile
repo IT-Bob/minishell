@@ -26,7 +26,7 @@ INC_FILE = minishell.h
 # Fichiers sources
 SRC_PATH = src/
 SRC_FILE = minishell.c libft.c
-SRC_BUIL = echo.c environnement.c env.c exit.c
+SRC_BUIL = echo.c environnement.c env.c exit.c setenv.c
 SRC_EXEC = exec.c
 
 # Variables
@@ -36,7 +36,7 @@ LIB_INC = $(LIBFT)includes/
 OBJ = $(SRC:.c=.o)
 LIB = $(LIBFT)libft.a
 INC = $(addprefix $(INC_PATH), $(INC_FILE))
-SRC = $(addprefix $(SRC_PATH), $(SRC_FILE)) $(addprefix $(SRC_PATH)/builtins/, $(SRC_BUIL)) $(addprefix $(SRC_PATH)/executables/, $(SRC_EXEC))
+SRC = $(addprefix $(SRC_PATH), $(SRC_FILE)) $(addprefix $(SRC_PATH)builtins/, $(SRC_BUIL)) $(addprefix $(SRC_PATH)executables/, $(SRC_EXEC))
 
 # Règles globales
 all: libft $(NAME)

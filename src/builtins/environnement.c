@@ -18,7 +18,7 @@
 **
 ** \return	Longueur de la première dimension.
 */
-static int		ft_strlendouble(char **doublestr)
+int		ft_strlendouble(char **doublestr)
 {
 	int	i;
 
@@ -29,14 +29,16 @@ static int		ft_strlendouble(char **doublestr)
 	return (i);
 }
 
-/*
+/**
 ** \brief	Allocation de la mémoire pour l'environnement.
+**
+** Alloue ******* termine par \0.
 **
 ** \param	size -	Nombre de paramètres de l'environnement (taille).
 **
 ** \return	L'environnement alloué ou NULL en cas d'erreur.
 */
-static char	**alloc_environnement(unsigned int size)
+char	**alloc_environnement(unsigned int size)
 {
 	char	**environnement;
 
