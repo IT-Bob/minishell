@@ -33,11 +33,11 @@ static void	env_exec(char **argv, char **environnement)
 	}
 }
 
-static void	env_i(char **argv)
+static void	env_i(char **argv, char *path)
 {
 	char	**environnement;
 
-	if (argv)
+	if (argv && path)
 	{
 		if (argv[0])
 		{
@@ -47,9 +47,9 @@ static void	env_i(char **argv)
 	}
 }
 
-static void	env_u(char **argv, char **environnement)
+static void	env_u(char **argv, char **environnement, char *path)
 {
-	if (argv)
+	if (argv && path)
 	{
 		if (!argv[0])
 			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
@@ -76,13 +76,24 @@ static void	env_u(char **argv, char **environnement)
 */
 void		env(char **argv, char **environnement)
 {
+	int		i;
+	char	*path;
+
 	if (argv && environnement)
 	{
+		if ((i = find_var("PATH", environnement)) >= 0)
+		{	
+			if (!(path = ft_strdup(environnement[i])))
+				ft_putendl_fd("minishell : erreur d'allocation", 2);
+		}
+		else
+			path = NULL;
 		if (!argv[0])
 			print_env(environnement);
 		else if (ft_strequ(argv[0], "-i"))
-			env_i(&argv[1]);
+			env_i(&argv[1], path);
 		else if (ft_strequ(argv[0], "-u"))
-			env_u(&argv[1], environnement);
+			env_u(&argv[1], environnement, path);
+		ft_strdel(&path);
 	}
 }
