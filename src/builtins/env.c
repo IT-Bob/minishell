@@ -3,7 +3,7 @@
 ** \author	aguerin42@icloud.com
 ** \date	août 2017
 **
-** \brief	Fonctions pour le builtin env().
+** \brief	Fonctions pour le builtin env.
 */
 
 #include "minishell.h"
@@ -18,6 +18,46 @@ static void	print_env(char **environnement)
 	ft_strdoubleiter(environnement,(void*)&ft_putendl);
 }
 
+static void	env_exec(char **argv, char **environnement)
+{
+	int	i;
+
+	if (argv && environnement)
+	{
+		i = 0;
+		while (argv[i] && ft_strchr(argv[i], '='))
+			i++;
+		if (!argv[i])
+			NULL;
+		
+	}
+}
+
+static void	env_i(char **argv)
+{
+	char	**environnement;
+
+	if (argv)
+	{
+		if (argv[0])
+		{
+			environnement = NULL;
+			env_exec(argv, environnement);
+		}
+	}
+}
+
+static void	env_u(char **argv, char **old_env, char **new_env)
+{
+	if (argv)
+	{
+		if (!argv[0])
+			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
+		else if (old_env && new_env)
+		{
+		}
+	}
+}
 /**
 ** \brief	Affichage de l'environnement
 **			ou appel de fonction avec l'environnement.
@@ -30,21 +70,21 @@ static void	print_env(char **environnement)
 ** - Préciser une ou plusieurs variables permet de la/les modifier
 **	temporairement lors de l'appel à un exécutable.
 **
-** \param	argv -		Commande env et ses paramètres.
+** \param	argv -		Paramètres de env();
 ** \param	old_env -	Ancien environnement.
 ** \param	new_env -	Nouvel environnement.
 */
-void		env(char **argv, char ***old_env, char ***new_env)
+void		env(char **argv, char **old_env, char **new_env)
 {
 	if (argv && old_env)
 	{
 		if (!new_env)
 			new_env = old_env;
-		if (!argv[1])
-			print_env(new_env[0]);
-		else if (ft_strequ(argv[1], "-i"))
-			ft_putendl("env vide");
-		else if (ft_strequ(argv[1], "-u"))
-			ft_putendl("supp var");
+		if (!argv[0])
+			print_env(new_env);
+		else if (ft_strequ(argv[0], "-i"))
+			env_i(&argv[1]);
+		else if (ft_strequ(argv[0], "-u"))
+			env_u(&argv[1], old_env, new_env);
 	}
 }

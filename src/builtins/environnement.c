@@ -13,8 +13,8 @@
 /**
 ** \brief	Recherche de variable d'environnement.
 **
-** \param	Variable à rechercher.
-** \param	Environnement dans lequel chercher la variable.
+** \param	var -			Variable à rechercher.
+** \param	environnement -	Environnement dans lequel chercher la variable.
 **
 ** \return	Indice de la variable dans l'environnement ou -1 si celle-ci n'y
 **			est pas.
@@ -57,8 +57,6 @@ int		ft_strlendouble(char **doublestr)
 
 /**
 ** \brief	Allocation de la mémoire pour l'environnement.
-**
-** Alloue ******* termine par \0.
 **
 ** \param	size -	Nombre de paramètres de l'environnement (taille).
 **

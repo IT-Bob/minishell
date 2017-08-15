@@ -3,7 +3,7 @@
 ** \author	Alexis Guérin
 ** \date	août 2017
 **
-** \brief	Fonctions pour le builtin ft_setenv().
+** \brief	Fonctions pour le builtin setenv.
 */
 
 #include "minishell.h"

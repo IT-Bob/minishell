@@ -13,32 +13,6 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
-/**
-** \brief	Recherche de variable d'environnement.
-**
-** \param	Variable à rechercher.
-** \param	Environnement dans lequel chercher la variable.
-**
-** \return	Indice de la variable dans l'environnement ou -1 si celle-ci n'y
-**			est pas.
-*/
-static int	find_var(char *var, char **environnement)
-{
-	int	i;
-	int	len;
-
-	if (var && environnement)
-	{
-		i = -1;
-		len = ft_strlen(var);
-		while (environnement[++i])
-			if (ft_strnequ(var, environnement[i], len))
-				if ((environnement[i][len] && environnement[i][len] == '='))
-					return (i);
-	}
-	return (-1);
-}
-
 static char	*cut_path(char *path)
 {
 	char	*tmp;

@@ -3,7 +3,7 @@
 ** \author	aguerin42@icloud.com
 ** \date	août 2017
 **
-** \brief	Fonction pour le builtin exit() -> ft_exit().
+** \brief	Fonction pour le builtin exit.
 */
 
 #include "minishell.h"

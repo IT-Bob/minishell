@@ -3,7 +3,7 @@
 ** \author	aguerin42@icloud.com
 ** \date	août 2017
 **
-** \brief	Fonctions pour le builtin echo().
+** \brief	Fonctions pour le builtin echo.
 */
 
 #include "minishell.h"

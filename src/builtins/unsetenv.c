@@ -3,7 +3,7 @@
 ** \author	
 ** \date	
 **
-** \brief	Fonctions pour le builtin unsetenv().
+** \brief	Fonctions pour le builtin unsetenv.
 */
 
 #include "minishell.h"

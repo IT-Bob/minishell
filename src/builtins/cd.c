@@ -3,7 +3,7 @@
 ** \author	aguerin42@icloud.com
 ** \date	août 2017
 **
-** \brief	Fonctions pour le builtin cd().
+** \brief	Fonctions pour le builtin cd.
 */
 
 #include "minishell.h"
