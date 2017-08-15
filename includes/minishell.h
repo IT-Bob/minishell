@@ -13,7 +13,7 @@
 
 void	echo(char **argv);
 
-void	env(char **argv, char ***old_env, char ***new_env);
+void	env(char **argv, char **old_env, char **new_env);
 
 void	ft_strdoubleiter(char **doublestr, void (*f)(char *str));
 char	**copy_env(char **old_env, unsigned int len);
@@ -21,6 +21,7 @@ char	**create_env();
 char	**set_new_env(char **environ);
 char	**alloc_environnement(unsigned int size);
 int		ft_strlendouble(char **doublestr);
+int		find_var(char *var, char **environnement);
 
 int		ft_exit(char **argv, int *exit);
 
