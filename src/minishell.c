@@ -23,26 +23,24 @@
 ** \return 0 -	Fin normale de la fonction appelée ou de sa recherche.
 ** \return 1 -	Quitter minishell.
 */
-int			launch(char **argv, char ***old_env, char ***new_env, int *exit)
+static int	launch(char **argv, char ***environnement, int *exit)
 {
 	if (argv && argv[0])
 	{
-		if (!new_env)
-			new_env = old_env;
 		if (ft_strequ(argv[0], "exit"))
 			return (ft_exit(argv, exit));
-		else if (ft_strequ(argv[0], "env") && old_env && new_env)
-			env(&argv[1], old_env[0], new_env[0]);
+		else if (ft_strequ(argv[0], "env") && environnement)
+			env(&argv[1], environnement[0]);
 		else if (ft_strequ(argv[0], "setenv"))
-			ft_setenv(&argv[1], old_env);
+			ft_setenv(&argv[1], environnement);
 		else if (ft_strequ(argv[0], "unsetenv"))
-			ft_unsetenv(&argv[1], old_env);
+			ft_unsetenv(&argv[1], environnement);
 		else if (ft_strequ(argv[0], "echo"))
 			echo(argv);
 		else if (ft_strequ(argv[0], "cd"))
 			ft_putendl(argv[0]);
 		else
-			exec(argv, old_env, new_env);
+			exec(argv, environnement, NULL);
 	}
 	return (0);
 }
@@ -69,7 +67,7 @@ static int	call_command(char *line, char ***environnement, int *exit)
 			{
 				if (!(argv = ft_strsplit(commands[i], ' ')))
 					ft_putendl_fd("Erreur d'allocation.", 2);
-				quit = launch(argv, environnement, environnement, exit);
+				quit = launch(argv, environnement, exit);
 				ft_strdeldouble(argv);
 			}
 		ft_strdeldouble(commands);

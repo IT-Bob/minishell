@@ -13,7 +13,7 @@
 
 void	echo(char **argv);
 
-void	env(char **argv, char **old_env, char **new_env);
+void	env(char **argv, char **environnement);
 
 void	ft_strdoubleiter(char **doublestr, void (*f)(char *str));
 char	**copy_env(char **old_env, unsigned int len);
@@ -28,7 +28,7 @@ int		ft_exit(char **argv, int *exit);
 int		ft_setenv(char **argv, char ***environnement);
 int		ft_unsetenv(char **argv, char ***environnement);
 
-int		exec(char **argv, char ***old_env, char ***new_env);
+int		exec(char **argv, char ***environnement, char *path);
 
 #endif
 

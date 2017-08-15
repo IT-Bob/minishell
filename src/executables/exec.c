@@ -31,16 +31,21 @@ static char	*cut_path(char *path)
 /*
 ** Cherche l'exécutable dans le PATH de l'environnement.
 */
-static int	search_exec(char **argv, char ***old_env, char ***new_env)
+static int	search_exec(char **argv, char ***environnement, char *old_path)
 {
 	int		i;
 	char	*tmp;
 	char	*path;
 
-	if (argv && old_env && new_env)
+	if (argv && environnement)
 	{
-		i = find_var("PATH", old_env[0]);
-		path = ((i >= 0) ? old_env[0][i] : NULL);
+		if (!old_path)
+		{
+			i = find_var("PATH", environnement[0]);
+			path = ((i >= 0) ? environnement[0][i] : NULL);
+		}
+		else
+			path = old_path;
 		if (path && (path = ft_strchr(path, '=')))
 			path = path + 1;
 		if (path)
@@ -73,23 +78,21 @@ static int	search_exec(char **argv, char ***old_env, char ***new_env)
 ** \return	0 si l'exécutable a pu être trouvé et lancé
 **				ou une autre valeur sinon.
 */
-int	exec(char **argv, char ***old_env, char ***new_env)
+int	exec(char **argv, char ***environnement, char *path)
 {
 	int		ret;
 	pid_t	f;
 
-	if (argv && argv[0] && old_env)
+	if (argv && argv[0] && environnement)
 	{
-		if (!new_env)
-			new_env = old_env;
 		if ((f = fork()))
 			wait(NULL);
 		else
 		{
 			if (argv[0][0] && (argv[0][0] == '/' || ft_strnequ(argv[0], "./", 2)))
-				ret = execve(argv[0], argv, new_env[0]);
+				ret = execve(argv[0], argv, environnement[0]);
 			else
-				ret = search_exec(argv, old_env, new_env);
+				ret = search_exec(argv, environnement, path);
 			if (ret)
 			{
 				ft_putstr_fd("Minishell : Commande introuvable : ", 2);

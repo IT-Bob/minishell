@@ -47,13 +47,13 @@ static void	env_i(char **argv)
 	}
 }
 
-static void	env_u(char **argv, char **old_env, char **new_env)
+static void	env_u(char **argv, char **environnement)
 {
 	if (argv)
 	{
 		if (!argv[0])
 			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
-		else if (old_env && new_env)
+		else if (environnement)
 		{
 		}
 	}
@@ -74,17 +74,15 @@ static void	env_u(char **argv, char **old_env, char **new_env)
 ** \param	old_env -	Ancien environnement.
 ** \param	new_env -	Nouvel environnement.
 */
-void		env(char **argv, char **old_env, char **new_env)
+void		env(char **argv, char **environnement)
 {
-	if (argv && old_env)
+	if (argv && environnement)
 	{
-		if (!new_env)
-			new_env = old_env;
 		if (!argv[0])
-			print_env(new_env);
+			print_env(environnement);
 		else if (ft_strequ(argv[0], "-i"))
 			env_i(&argv[1]);
 		else if (ft_strequ(argv[0], "-u"))
-			env_u(&argv[1], old_env, new_env);
+			env_u(&argv[1], environnement);
 	}
 }
