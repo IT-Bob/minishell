@@ -8,13 +8,15 @@
 
 #include "minishell.h"
 #include <unistd.h>
+#include <sys/stat.h>
 
 /* VERIFICATION DES DROITS */
 static int	change_dir(char *path, char ***environnement)
 {
-	char	*pwd;
-	char	*oldpwd;
-	char	**var;
+	char		*pwd;
+	char		*oldpwd;
+	char		**var;
+	struct stat	buf;
 
 	if (path && environnement)
 	{
@@ -27,8 +29,12 @@ static int	change_dir(char *path, char ***environnement)
 		}
 		if (chdir(path))
 		{
+			buf.st_ino = 0;
 			ft_strdel(&pwd);
 			ft_strdel(&oldpwd);
+			lstat(path, &buf);
+			if ((buf.st_ino))
+				return(ft_putstr_fd("cd : permission non accordée : ", 2) + ft_putendl_fd(path, 2));
 			return (ft_putendl_fd("minishell : cd : erreur de changement de dossier", 2));
 		}
 		if (!(var = ft_strsplit(oldpwd, ';')))
