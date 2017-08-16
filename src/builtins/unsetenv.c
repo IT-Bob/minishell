@@ -36,11 +36,11 @@ static int incorrect_id(char *var)
 ** \return	0 si la suppression a été effectuée avec succès
 **				ou une autre valeur en cas d'erreur.
 */
-static int	delete_var(char ***environnement, int pos)
+int	delete_var(char ***environnement, int pos)
 {
 	char	**environ;
 
-	if (environnement)
+	if (environnement && pos >= 0 && (pos < ft_strlendouble(environnement[0])))
 	{
 		environ = environnement[0];
 		ft_strdel(&environ[pos]);

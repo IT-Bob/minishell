@@ -21,24 +21,19 @@ static void	print_env(char **environnement)
 /**
 **
 */
-static void	env_exec(char **argv, char **environnement)
+static int	env_exec(char **argv, char ***environnement)
 {
 	int	i;
-	int	len;
+	int	ret;
 
+	i = -1;
 	if (argv && environnement)
 	{
-		i = 0;
-		len = ft_strlendouble(argv);
-		while (ft_strchr(argv[i], '='))
-			i++;
-		ft_putnbrl(i);
-		ft_putnbrl(len);
-		if (i != (len - 1))
-			ft_putendl("pas ok");
-		else
-			ft_putendl("ok");
+		ret = 0;
+		while (argv[++i] && (ft_strchr(argv[i], '=')) && !ret)
+			ret = alter_variable(argv[i], environnement);
 	}
+	return (i);
 }
 
 /**
@@ -46,14 +41,22 @@ static void	env_exec(char **argv, char **environnement)
 */
 static void	env_i(char **argv, char *path)
 {
+	int		i;
 	char	**environnement;
 
 	if (argv && path)
 	{
 		if (argv[0])
 		{
-			environnement = NULL;
-			env_exec(argv, environnement);
+			environnement = alloc_environnement(0);
+			if ((i = env_exec(argv, &environnement)) >= 0)
+			{
+				if (!argv[i] || ft_strequ(argv[i], "env"))
+					print_env(environnement);
+				else
+					exec(&argv[i], &environnement, path);
+			}
+			ft_strdeldouble(environnement);
 		}
 	}
 }
@@ -61,18 +64,34 @@ static void	env_i(char **argv, char *path)
 /**
 **
 */
-static void	env_u(char **argv, char **environnement, char *path)
+/*static void	env_u(char **argv, char **environnement, char *path)
 {
+	int		i;
+	char	**copy;
+
 	if (argv && path)
 	{
 		if (!argv[0])
 			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
 		else if (environnement)
-		{
-			env_exec(argv, environnement);
-		}
+			if ((copy = copy_env(environnement, ft_strlendouble(environnement))))
+			{
+				if (argv[0])
+				{
+					if (ft_strchr(argv[0], '='))
+						ft_putendl_fd("Argument invalide", 2);
+					else
+						delete_var(&copy, find_var(argv[0], copy));
+				}
+				if ((i = env_exec(&argv[1], &environnement)) >= 0)
+				{
+					print_env(copy);
+				}
+				ft_strdeldouble(copy);
+			}
 	}
-}
+}*/
+
 /**
 ** \brief	Affichage de l'environnement
 **			ou appel de fonction avec l'environnement.
@@ -106,8 +125,10 @@ void		env(char **argv, char **environnement)
 			print_env(environnement);
 		else if (ft_strequ(argv[0], "-i"))
 			env_i(&argv[1], path);
-		else if (ft_strequ(argv[0], "-u"))
-			env_u(&argv[1], environnement, path);
+/*		else if (ft_strequ(argv[0], "-u"))
+			env_u(&argv[1], environnement, path);*/
+		else
+			exec(argv, &environnement, path);
 		ft_strdel(&path);
 	}
 }

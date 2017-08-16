@@ -17,7 +17,7 @@
 ** \return 0 si la modification a été effectuée avec succès
 **			ou une autre valeur en cas d'erreur.
 */
-static int	alter_variable(char *var, char ***environnement)
+int	alter_variable(char *var, char ***environnement)
 {
 	int		i;
 	int		len;

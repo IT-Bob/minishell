@@ -29,7 +29,9 @@ char	*get_var(char *var, char **environnement);
 int		ft_exit(char **argv, int *exit);
 
 int		ft_setenv(char **argv, char ***environnement);
+int		alter_variable(char *var, char ***environnement);
 int		ft_unsetenv(char **argv, char ***environnement);
+int		delete_var(char ***environnement, int pos);
 
 int		exec(char **argv, char ***environnement, char *path);
 
