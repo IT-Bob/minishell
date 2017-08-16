@@ -7,7 +7,7 @@
 #include "minishell.h"
 #include "get_next_line.h"
 
-/**
+/*
 ** \brief	Lancement de fonction.
 **
 ** Cherche le builtin ou la fonction à appeler et la lance avec ses
@@ -114,7 +114,8 @@ int		main(void)
 	while (!quit && !exit && get_next_line(1, &line) > 0)
 	{
 		ft_striter(line, &delete_tabulation);
-		if (!(quit = call_command(line, environnement ? &environnement : NULL, &exit)))
+		if (!(quit = call_command(line, environnement ?
+				&environnement : NULL, &exit)))
 			ft_putstr("$> ");
 		ft_strdel(&line);
 	}

@@ -11,75 +11,6 @@
 #include <unistd.h>
 
 /**
-** \brief	Recherche de variable d'environnement.
-**
-** \param	var -			Variable à rechercher.
-** \param	environnement -	Environnement dans lequel chercher la variable.
-**
-** \return	Indice de la variable dans l'environnement ou -1 si celle-ci n'y
-**			est pas.
-*/
-int	find_var(char *var, char **environnement)
-{
-	int	i;
-	int	len;
-
-	if (var && environnement)
-	{
-		i = -1;
-		len = ft_strlen(var);
-		while (environnement[++i])
-			if (ft_strnequ(var, environnement[i], len))
-				if ((environnement[i][len] && environnement[i][len] == '='))
-					return (i);
-	}
-	return (-1);
-}
-
-/**
-**	\brief	Recherche de variable d'environnement.
-**
-** \param	var -			Variable à rechercher.
-** \param	environnement -	Environnement dans lequel chercher la variable.
-**
-** \return	Valeur de la variable ou NULL si non trouvée.
-*/
-char	*get_var(char *var, char **environnement)
-{
-	int		i;
-	char	*variable;
-
-	variable = NULL;
-	if (var && environnement)
-		if ((i = find_var(var, environnement)) >= 0)
-		{
-			variable = environnement[i];
-			if ((variable = ft_strchr(variable, '=')))
-				variable++;
-		}
-	return (variable);
-}
-
-/**
-** \brief	Calcul la longueur de la première dimension d'un double pointeur
-**			sur char.
-**
-** \param	doublestr -	Double pointeur sur char.
-**
-** \return	Longueur de la première dimension.
-*/
-int		ft_strlendouble(char **doublestr)
-{
-	int	i;
-
-	i = 0;
-	if (doublestr)
-		while (doublestr[i])
-			i++;
-	return (i);
-}
-
-/**
 ** \brief	Allocation de la mémoire pour l'environnement.
 **
 ** \param	size -	Nombre de paramètres de l'environnement (taille).
@@ -107,7 +38,6 @@ char	**alloc_environnement(unsigned int size)
 **
 ** \return	L'environnement copié ou NULL en cas d'erreur.
 */
-
 char	**copy_env(char **old_env, unsigned int len)
 {
 	int		size;
@@ -146,7 +76,7 @@ char	**copy_env(char **old_env, unsigned int len)
 **
 ** \return	Le nouvel environnement ou NULL en cas d'erreur.
 */
-char	**create_env()
+static char	**create_env()
 {
 	int		size;
 	char	**environnement;

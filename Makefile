@@ -25,7 +25,7 @@ INC_FILE = minishell.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = minishell.c libft.c
+SRC_FILE = minishell.c libft.c variable.c
 SRC_BUIL = cd.c echo.c environnement.c env.c exit.c setenv.c unsetenv.c
 SRC_EXEC = exec.c
 

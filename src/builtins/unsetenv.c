@@ -27,7 +27,7 @@ static int incorrect_id(char *var)
 	return (1);
 }
 
-/*
+/**
 **	\brief	Supprime la variable donnée.
 **
 **	\param	environnement - Environnement.

@@ -10,7 +10,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-/* VERIFICATION DES DROITS */
 static int	change_dir(char *path, char ***environnement)
 {
 	char		*pwd;
