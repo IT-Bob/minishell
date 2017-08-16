@@ -1,6 +1,6 @@
 /**
 ** \file	minishell.c
-** \author	aguerin42@icloud.com
+** \author	Alexis Guérin
 ** \date	août 2017
 */
 
@@ -36,7 +36,7 @@ static int	launch(char **argv, char ***environnement, int *exit)
 		else if (ft_strequ(argv[0], "unsetenv"))
 			ft_unsetenv(&argv[1], environnement);
 		else if (ft_strequ(argv[0], "echo"))
-			echo(argv);
+			echo(&argv[1]);
 		else if (ft_strequ(argv[0], "cd"))
 			cd(&argv[1], environnement);
 		else

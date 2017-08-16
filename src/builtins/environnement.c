@@ -3,7 +3,7 @@
 ** \author	aguerin42@icloud.composé
 ** \date	août 2017
 **
-** \brief	Fonction d'initialisation, de création
+** \brief	Fonction de rechercher, d'initialisation, de création
 **			et de copie de l'environnement.
 */
 
@@ -36,6 +36,14 @@ int	find_var(char *var, char **environnement)
 	return (-1);
 }
 
+/**
+**	\brief	Recherche de variable d'environnement.
+**
+** \param	var -			Variable à rechercher.
+** \param	environnement -	Environnement dans lequel chercher la variable.
+**
+** \return	Valeur de la variable ou NULL si non trouvée.
+*/
 char	*get_var(char *var, char **environnement)
 {
 	int		i;

@@ -1,6 +1,6 @@
 /**
 ** \file	cd.c
-** \author	aguerin42@icloud.com
+** \author	Alexis Guérin
 ** \date	août 2017
 **
 ** \brief	Fonctions pour le builtin cd.
@@ -58,7 +58,6 @@ static int	change_dir(char *path, char ***environnement)
 		ft_strdel(&pwd);
 		ft_strdel(&oldpwd);
 		ft_strdeldouble(var);
-
 		return (0);
 	}
 	return (1);

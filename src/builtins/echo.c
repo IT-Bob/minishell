@@ -1,6 +1,6 @@
 /**
 ** \file	echo.c
-** \author	aguerin42@icloud.com
+** \author	Alexis Guérin
 ** \date	août 2017
 **
 ** \brief	Fonctions pour le builtin echo.
@@ -17,7 +17,7 @@
 */
 void	echo(char **argv)
 {
-	if (argv && argv[1])
-		ft_strdoubleiter(&argv[1], (void*)&ft_putstrs);
+	if (argv)
+		ft_strdoubleiter(argv, (void*)&ft_putstrs);
 	ft_putchar('\n');
 }

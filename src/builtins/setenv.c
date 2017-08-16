@@ -8,6 +8,15 @@
 
 #include "minishell.h"
 
+/**
+** \brief	Modification de la variable d'environnement indiquée.
+**
+** \param	var -			Variable à modifier.
+** \param	environnement - Environnement.
+**
+** \return 0 si la modification a été effectuée avec succès
+**			ou une autre valeur en cas d'erreur.
+*/
 static int	alter_variable(char *var, char ***environnement)
 {
 	int		i;
@@ -47,7 +56,7 @@ static int	alter_variable(char *var, char ***environnement)
 /**
 ** \brief	Ajout de variable(s) à l'environnement.
 **
-** \param	argv -			Paramètres de ft_setenv().
+** \param	argv -			Paramètres de setenv.
 ** \param	environnement -	Environnement à modifier.
 **
 ** \return	0 - Exécution normale de la commande ou une autre valeur

@@ -1,6 +1,6 @@
 /**
 ** \file	libft.c
-** \author	aguerin42@icloud.com
+** \author	Alexis Guérin
 ** \date	août 2017
 **
 ** \brief	Fonctions à déplacer dans libft.

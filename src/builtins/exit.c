@@ -1,6 +1,6 @@
 /**
 ** \file	exit.c
-** \author	aguerin42@icloud.com
+** \author	Alexis Guérin
 ** \date	août 2017
 **
 ** \brief	Fonction pour le builtin exit.
@@ -11,7 +11,7 @@
 /**
 ** \brief	Quitter Minishell.
 **
-** \param	argv -	Fonction exit et ses paramètres.
+** \param	argv -	Commande exit et ses paramètres.
 ** \param	exit -	Valeur à renvoyer au moment de quitter le programme.
 **
 ** \return	1 - Valeur pour indiquer à la fonction principale de quitter.

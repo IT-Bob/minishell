@@ -1,6 +1,6 @@
 /**
 ** \file	env.c
-** \author	aguerin42@icloud.com
+** \author	Alexis Guérin
 ** \date	août 2017
 **
 ** \brief	Fonctions pour le builtin env.
@@ -18,21 +18,32 @@ static void	print_env(char **environnement)
 	ft_strdoubleiter(environnement,(void*)&ft_putendl);
 }
 
+/**
+**
+*/
 static void	env_exec(char **argv, char **environnement)
 {
 	int	i;
+	int	len;
 
 	if (argv && environnement)
 	{
 		i = 0;
-		while (argv[i] && ft_strchr(argv[i], '='))
+		len = ft_strlendouble(argv);
+		while (ft_strchr(argv[i], '='))
 			i++;
-		if (!argv[i])
-			NULL;
-		
+		ft_putnbrl(i);
+		ft_putnbrl(len);
+		if (i != (len - 1))
+			ft_putendl("pas ok");
+		else
+			ft_putendl("ok");
 	}
 }
 
+/**
+**
+*/
 static void	env_i(char **argv, char *path)
 {
 	char	**environnement;
@@ -47,6 +58,9 @@ static void	env_i(char **argv, char *path)
 	}
 }
 
+/**
+**
+*/
 static void	env_u(char **argv, char **environnement, char *path)
 {
 	if (argv && path)
@@ -55,6 +69,7 @@ static void	env_u(char **argv, char **environnement, char *path)
 			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
 		else if (environnement)
 		{
+			env_exec(argv, environnement);
 		}
 	}
 }
@@ -70,9 +85,8 @@ static void	env_u(char **argv, char **environnement, char *path)
 ** - Préciser une ou plusieurs variables permet de la/les modifier
 **	temporairement lors de l'appel à un exécutable.
 **
-** \param	argv -		Paramètres de env();
-** \param	old_env -	Ancien environnement.
-** \param	new_env -	Nouvel environnement.
+** \param	argv -			Paramètres de env.
+** \param	environnement -	Environnement.
 */
 void		env(char **argv, char **environnement)
 {

@@ -13,6 +13,9 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 
+/*
+** Ajoute un slash à la fin du path s'il n'y en a pas.
+*/
 static char	*add_slash(char *path)
 {
 	int		len;
@@ -35,6 +38,9 @@ static char	*add_slash(char *path)
 	return (path);
 }
 
+/*
+** Découpe le PATH pour obtenir le chemin vers un dossier d'exécutables.
+*/
 static char	*cut_path(char *path)
 {
 	char	*tmp;
@@ -92,12 +98,11 @@ static int	search_exec(char **argv, char ***environnement, char *old_path)
 ** exec() cherche l'exécutable donné dans argv à l'aide de la variable PATH.
 ** new_env est donnée comme environnement au lancement de l'exécutable.
 **
-** \param	argv -		Fonction et ses paramètres.
-** \param	old_env -	Ancien environnement où chercher les chemins
+** \param	argv -			Fonction et ses paramètres.
+** \param	environnement -	Ancien environnement où chercher les chemins
 **						des exécutables grâce au PATH.
-** \param	new_env -	Nouvel environnement passé à l'exécutable.
-**						Peut être identique à old_env.
-**						Si NULL, old_env est utilisé à la place.
+** \param	path -			Chemin a utiliser pour trouver les exécutables.
+**							Est utilisé en priorité si non nul.
 **
 ** \return	0 si l'exécutable a pu être trouvé et lancé
 **				ou une autre valeur sinon.

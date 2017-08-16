@@ -1,13 +1,21 @@
 /**
-** \file	
-** \author	
-** \date	
+** \file	unsetenv.c
+** \author	Alexis Guérin
+** \date	août 2017
 **
 ** \brief	Fonctions pour le builtin unsetenv.
 */
 
 #include "minishell.h"
 
+/*
+** \brief	Message d'erreur lorsque l'utilisateur entre une variable
+**			à supprimer suivie d'un '='.
+**
+** \param	var -	Variable donnée incorrecte.
+**
+** \return	1 - Fin normale de la fonction.
+*/
 static int incorrect_id(char *var)
 {
 	if (var)
@@ -19,6 +27,15 @@ static int incorrect_id(char *var)
 	return (1);
 }
 
+/*
+**	\brief	Supprime la variable donnée.
+**
+**	\param	environnement - Environnement.
+**	\param	pos -			Position de la variable dans l'environnement.
+**
+** \return	0 si la suppression a été effectuée avec succès
+**				ou une autre valeur en cas d'erreur.
+*/
 static int	delete_var(char ***environnement, int pos)
 {
 	char	**environ;
@@ -45,8 +62,11 @@ static int	delete_var(char ***environnement, int pos)
 /**
 ** \brief	Suppression de variable(s) d'environnement.
 **
-** \param	argv -			Paramètres de unsetenv().
+** \param	argv -			Paramètres de unsetenv.
 ** \param	environnement -	Environnement à modifier.
+**
+** \return	0 si la suppression a été effectuée avec succès
+**				ou une autre valeur en cas d'erreur.
 */
 int	ft_unsetenv(char **argv, char ***environnement)
 {
