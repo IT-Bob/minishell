@@ -66,6 +66,37 @@ char	**copy_env(char **old_env, unsigned int len)
 	return (new_env);
 }
 
+/*
+** Incrémente la variable SHLVL de 1 ou l'initialise à 0 si elle n'existe pas.
+*/
+static void	increase_shlvl(char ***environnement)
+{
+	int		i;
+	char	*lvl;
+	char	*shlvl;
+	char	**tmp;
+
+	if (environnement)
+	{
+		if (((i = find_var("SHLVL", environnement[0])) >= 0) &&
+			(lvl = ft_strchr(environnement[0][i], '=')))
+		{
+			if (!(lvl = ft_itoa(ft_atoi(lvl + 1) + 1)) ||
+				!(shlvl = ft_strjoin("SHLVL=", lvl)))
+				ft_putendl_fd("minishell : erreur d'allocation", 2);
+			ft_strdel(&lvl);
+		}
+		else
+			shlvl = ft_strdup("SHLVL=1");
+		if ((tmp = ft_strsplit(shlvl, ' ')))
+			ft_setenv(tmp, environnement);
+		else
+			ft_putendl_fd("minishell : erreur d'allocation", 2);
+		ft_strdel(&shlvl);
+		ft_strdeldouble(tmp);
+	}
+}
+
 /**
 ** \brief	Création d'un nouvel environnement.
 **
@@ -114,7 +145,10 @@ char	**set_new_env(char **environ)
 	char	**environnement;
 
 	if (environ && environ[0])
+	{
 		environnement = copy_env(environ, ft_strlendouble(environ));
+		increase_shlvl(&environnement);
+	}
 	else
 		environnement = create_env();
 	return (environnement);

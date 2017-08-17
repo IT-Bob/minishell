@@ -35,7 +35,7 @@ int	find_var(char *var, char **environnement)
 }
 
 /**
-**	\brief	Recherche de variable d'environnement.
+** \brief	Recherche de variable d'environnement.
 **
 ** \param	var -			Variable à rechercher.
 ** \param	environnement -	Environnement dans lequel chercher la variable.
