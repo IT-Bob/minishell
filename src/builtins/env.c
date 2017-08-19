@@ -44,12 +44,12 @@ static void	env_i(char **argv, char *path)
 	int		i;
 	char	**environnement;
 
-	if (argv && path)
+	if (argv)
 	{
 		if (argv[0])
 		{
 			environnement = alloc_environnement(0);
-			if ((i = env_exec(argv, &environnement)) >= 0)
+			if (environnement && ((i = env_exec(argv, &environnement)) >= 0))
 			{
 				if (!argv[i] || ft_strequ(argv[i], "env"))
 					print_env(environnement);
