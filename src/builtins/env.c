@@ -52,6 +52,39 @@ static void	env_i(char **argv, char *path)
 	}
 }
 
+static void	env_u(char **argv, char **environ, char *path)
+{
+	int		i;
+	char	**tmp;
+	char	**environnement;
+
+	if (argv)
+	{
+		if (argv[0])
+		{
+			if (!ft_strchr(argv[0], '='))
+			{
+				environnement = copy_env(environ, ft_strlendouble(environ));
+				if ((tmp = ft_strsplit(argv[0], '=')))
+					ft_unsetenv(tmp, &environnement);
+				if (environnement && ((i = env_exec(&argv[1], &environnement)) >= 0))
+				{
+					if (!argv[i + 1] || ft_strequ(argv[i + 1], "env"))
+						print_env(environnement);
+					else
+						exec(&argv[i + 1], &environnement, path);
+				}
+				ft_strdeldouble(environnement);
+				ft_strdeldouble(tmp);
+			}
+			else
+				ft_putendl_fd("env : argument invalide", 2);
+		}
+		else
+			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
+	}
+}
+
 static void	env_only(char **argv, char **environ, char *path)
 {
 	int		i;
@@ -71,36 +104,7 @@ static void	env_only(char **argv, char **environ, char *path)
 	}
 }
 
-/**
-**
-*/
-/*static void	env_u(char **argv, char **environnement, char *path)
-{
-	int		i;
-	char	**copy;
 
-	if (argv && path)
-	{
-		if (!argv[0])
-			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
-		else if (environnement)
-			if ((copy = copy_env(environnement, ft_strlendouble(environnement))))
-			{
-				if (argv[0])
-				{
-					if (ft_strchr(argv[0], '='))
-						ft_putendl_fd("Argument invalide", 2);
-					else
-						delete_var(&copy, find_var(argv[0], copy));
-				}
-				if ((i = env_exec(&argv[1], &environnement)) >= 0)
-				{
-					print_env(copy);
-				}
-				ft_strdeldouble(copy);
-			}
-	}
-}*/
 
 /**
 ** \brief	Affichage de l'environnement
@@ -135,8 +139,8 @@ void		env(char **argv, char **environnement)
 			print_env(environnement);
 		else if (ft_strequ(argv[0], "-i"))
 			env_i(&argv[1], path);
-/*		else if (ft_strequ(argv[0], "-u"))
-			env_u(&argv[1], environnement, path);*/
+		else if (ft_strequ(argv[0], "-u"))
+			env_u(&argv[1], environnement, path);
 		else
 			env_only(argv, environnement, path);
 		ft_strdel(&path);
