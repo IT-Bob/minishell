@@ -21,9 +21,8 @@ static int	change_dir(char *path, char ***environnement)
 	{
 		if (!path[0])
 			path = ".";
-		if (!(pwd = getcwd(NULL, 0)))
-			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
-		if (!(oldpwd = ft_strjoin("OLDPWD=", pwd)))
+		pwd = getcwd(NULL, 0);
+		if (!(oldpwd = ft_strjoin("OLDPWD=", pwd ? pwd : "")))
 		{
 			ft_strdel(&pwd);
 			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
