@@ -6,7 +6,7 @@
 #    By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/06 17:18:16 by aguerin           #+#    #+#              #
-#    Updated: 2017/08/10 14:40:19 by aguerin          ###   ########.fr        #
+#    Updated: 2017/08/21 14:56:38 by aguerin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 
 # Options de compilation
 CC = @gcc
-CFLAGS = -Wall -Werror -Wextra -Wno-sign-compare -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -Wno-sign-compare #-g -fsanitize=address
 CPPFLAGS = -I $(INC_PATH) -I $(LIB_INC)
 CLIB = -L $(LIBFT) -lft
 

@@ -41,7 +41,8 @@ int	alter_variable(char *var, char ***environnement)
 			if ((environ = copy_env(environnement[0], len)))
 			{
 				if (!environ[len - 1] && !environ[len])
-					environ[len - 1] = (tmp ? ft_strdup(var) : ft_strjoin(var, "="));
+					environ[len - 1] =
+							(tmp ? ft_strdup(var) : ft_strjoin(var, "="));
 				ft_strdeldouble(environnement[0]);
 				environnement[0] = environ;
 			}
@@ -60,7 +61,7 @@ int	alter_variable(char *var, char ***environnement)
 ** \param	environnement -	Environnement à modifier.
 **
 ** \return	0 - Exécution normale de la commande ou une autre valeur
-				en cas d'erreur.
+**				en cas d'erreur.
 */
 int	ft_setenv(char **argv, char ***environnement)
 {

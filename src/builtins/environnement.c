@@ -17,7 +17,7 @@
 **
 ** \return	L'environnement alloué ou NULL en cas d'erreur.
 */
-char	**alloc_environnement(unsigned int size)
+char		**alloc_environnement(unsigned int size)
 {
 	char	**environnement;
 
@@ -38,7 +38,7 @@ char	**alloc_environnement(unsigned int size)
 **
 ** \return	L'environnement copié ou NULL en cas d'erreur.
 */
-char	**copy_env(char **old_env, unsigned int len)
+char		**copy_env(char **old_env, unsigned int len)
 {
 	int		size;
 	int		i;

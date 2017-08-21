@@ -11,7 +11,7 @@
 
 # include "libft.h"
 
-int	cd(char **argv, char ***environnement);
+int		cd(char **argv, char ***environnement);
 
 void	echo(char **argv);
 
@@ -36,4 +36,3 @@ int		delete_var(char ***environnement, int pos);
 int		exec(char **argv, char ***environnement, char *path);
 
 #endif
-

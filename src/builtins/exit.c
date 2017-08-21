@@ -16,7 +16,7 @@
 **
 ** \return	1 - Valeur pour indiquer à la fonction principale de quitter.
 */
-int			ft_exit(char **argv, int *exit)
+int	ft_exit(char **argv, int *exit)
 {
 	if (argv && exit)
 	{
@@ -34,4 +34,3 @@ int			ft_exit(char **argv, int *exit)
 	}
 	return (1);
 }
-

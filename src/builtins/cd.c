@@ -19,6 +19,8 @@ static int	change_dir(char *path, char ***environnement)
 
 	if (path && environnement)
 	{
+		if (!path[0])
+			path = ".";
 		if (!(pwd = getcwd(NULL, 0)))
 			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
 		if (!(oldpwd = ft_strjoin("OLDPWD=", pwd)))
@@ -33,8 +35,10 @@ static int	change_dir(char *path, char ***environnement)
 			ft_strdel(&oldpwd);
 			lstat(path, &buf);
 			if ((buf.st_ino))
-				return(ft_putstr_fd("cd : permission non accordée : ", 2) + ft_putendl_fd(path, 2));
-			return (ft_putendl_fd("minishell : cd : erreur de changement de dossier", 2));
+				return (ft_putstr_fd("cd : permission non accordée : ", 2)
+						+ ft_putendl_fd(path, 2));
+			return (ft_putendl_fd(
+				"minishell : cd : erreur de changement de dossier", 2));
 		}
 		if (!(var = ft_strsplit(oldpwd, ';')))
 		{
@@ -77,7 +81,7 @@ static int	change_dir(char *path, char ***environnement)
 ** \return	0 -	Exécution normale de la commande.
 ** \return	1 -	Erreur de modification du répertoire courant.
 */
-int	cd(char **argv, char ***environnement)
+int			cd(char **argv, char ***environnement)
 {
 	char	*path;
 	int		ret;
