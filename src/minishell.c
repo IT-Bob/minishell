@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguerin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/21 17:57:47 by aguerin           #+#    #+#             */
+/*   Updated: 2017/08/21 17:57:53 by aguerin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /**
 ** \file	minishell.c
 ** \author	Alexis Guérin
@@ -17,7 +29,7 @@
 ** \param old_env -	Ancien environnement où chercher l'exécutable de la fonction
 **					appelée.
 ** \param new_env -	Nouvel environnement passé à la fonction appelée.
-** \param exit -	Valeur de retour pour la fonction ft_exit(), peut être 
+** \param exit -	Valeur de retour pour la fonction ft_exit(), peut être
 **					initialisée à NULL lors de l'appel.
 **
 ** \return 0 -	Fin normale de la fonction appelée ou de sa recherche.
@@ -97,7 +109,7 @@ static void	delete_tabulation(char *str)
 ** \return	0 -	Arrêt normal du programme ou autre valeur donnée par exit
 **				(ft_exit()).
 */
-int		main(void)
+int			main(void)
 {
 	int			quit;
 	int			exit;

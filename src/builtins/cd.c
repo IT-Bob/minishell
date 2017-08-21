@@ -10,62 +10,52 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+void	freepwd(char *pwd, char *oldpwd)
+{
+	if (pwd)
+		ft_strdel(&pwd);
+	if (oldpwd)
+	ft_strdel(&oldpwd);
+}
+
 static int	change_dir(char *path, char ***environnement)
 {
 	char		*pwd;
 	char		*oldpwd;
-	char		**var;
 	struct stat	buf;
 
 	if (path && environnement)
 	{
+		pwd = NULL;
 		if (!path[0])
 			path = ".";
-		pwd = getcwd(NULL, 0);
-		if (!(oldpwd = ft_strjoin("OLDPWD=", pwd ? pwd : "")))
+		if (!(oldpwd = ft_strjoin("OLDPWD=", pwd = getcwd(NULL, 0) ? pwd : "")))
 		{
 			ft_strdel(&pwd);
 			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
 		}
+		ft_strdel(&pwd);
 		if (chdir(path))
 		{
-			buf.st_ino = 0;
-			ft_strdel(&pwd);
 			ft_strdel(&oldpwd);
+			buf.st_ino = 0;
 			lstat(path, &buf);
 			if ((buf.st_ino))
 				return (ft_putstr_fd("cd : permission non accordée : ", 2)
 						+ ft_putendl_fd(path, 2));
 			return (ft_putendl_fd(
-				"minishell : cd : erreur de changement de dossier", 2));
+				"cd : erreur de changement de dossier", 2));
 		}
-		if (!(var = ft_strsplit(oldpwd, ';')))
+		alter_variable(oldpwd, environnement);
+		ft_strdel(&oldpwd);
+		if (!(oldpwd = ft_strjoin("PWD=", pwd = getcwd(NULL, 0) ? pwd : "")))
 		{
 			ft_strdel(&pwd);
-			ft_strdel(&oldpwd);
 			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
 		}
-		ft_setenv(var, environnement);
+		alter_variable(oldpwd, environnement);
 		ft_strdel(&pwd);
 		ft_strdel(&oldpwd);
-		ft_strdeldouble(var);
-		if (!(pwd = getcwd(NULL, 0)))
-			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
-		if (!(oldpwd = ft_strjoin("PWD=", pwd)))
-		{
-			ft_strdel(&pwd);
-			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
-		}
-		if (!(var = ft_strsplit(oldpwd, ';')))
-		{
-			ft_strdel(&pwd);
-			ft_strdel(&oldpwd);
-			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
-		}
-		ft_setenv(var, environnement);
-		ft_strdel(&pwd);
-		ft_strdel(&oldpwd);
-		ft_strdeldouble(var);
 		return (0);
 	}
 	return (1);
@@ -90,13 +80,13 @@ int			cd(char **argv, char ***environnement)
 	{
 		path = NULL;
 		if (argv[0] && argv[1])
-			return (ft_putendl_fd("minishell : cd : trop d'arguments", 2));
+			return (ft_putendl_fd("cd : trop d'arguments", 2));
 		else if ((!argv[0] || ft_strnequ(argv[0], "~", 1)) &&
 				!(path = get_var("HOME", environnement[0])))
-			return (ft_putendl_fd("minishell : cd : HOME non défini", 2));
+			return (ft_putendl_fd("cd : HOME non défini", 2));
 		else if (ft_strequ(argv[0], "-") &&
 				!(path = get_var("OLDPWD", environnement[0])))
-			return (ft_putendl_fd("minishell : cd : OLDPWD non défini", 2));
+			return (ft_putendl_fd("cd : OLDPWD non défini", 2));
 		else if (!path)
 			path = argv[0];
 		if (argv[0] && argv[0][0] == '~')
