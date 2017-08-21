@@ -18,9 +18,6 @@ static void	print_env(char **environnement)
 	ft_strdoubleiter(environnement,(void*)&ft_putendl);
 }
 
-/**
-**
-*/
 static int	env_exec(char **argv, char ***environnement)
 {
 	int	i;
@@ -36,28 +33,41 @@ static int	env_exec(char **argv, char ***environnement)
 	return (i);
 }
 
-/**
-**
-*/
 static void	env_i(char **argv, char *path)
 {
 	int		i;
 	char	**environnement;
 
-	if (argv)
+	if (argv && argv[0])
 	{
-		if (argv[0])
+		environnement = alloc_environnement(0);
+		if (environnement && ((i = env_exec(argv, &environnement)) >= 0))
 		{
-			environnement = alloc_environnement(0);
-			if (environnement && ((i = env_exec(argv, &environnement)) >= 0))
-			{
-				if (!argv[i] || ft_strequ(argv[i], "env"))
-					print_env(environnement);
-				else
-					exec(&argv[i], &environnement, path);
-			}
-			ft_strdeldouble(environnement);
+			if (!argv[i] || ft_strequ(argv[i], "env"))
+				print_env(environnement);
+			else
+				exec(&argv[i], &environnement, path);
 		}
+		ft_strdeldouble(environnement);
+	}
+}
+
+static void	env_only(char **argv, char **environ, char *path)
+{
+	int		i;
+	char	**environnement;
+
+	if (argv && argv[0])
+	{
+		environnement = copy_env(environ, ft_strlendouble(environ));
+		if (environnement && ((i = env_exec(argv, &environnement)) >= 0))
+		{
+			if (!argv[i] || ft_strequ(argv[i], "env"))
+				print_env(environnement);
+			else
+				exec(&argv[i], &environnement, path);
+		}
+		ft_strdeldouble(environnement);
 	}
 }
 
@@ -128,7 +138,7 @@ void		env(char **argv, char **environnement)
 /*		else if (ft_strequ(argv[0], "-u"))
 			env_u(&argv[1], environnement, path);*/
 		else
-			exec(argv, &environnement, path);
+			env_only(argv, environnement, path);
 		ft_strdel(&path);
 	}
 }
