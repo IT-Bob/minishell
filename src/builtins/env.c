@@ -13,9 +13,10 @@
 **
 ** \param	environnement -	Environnement à afficher.
 */
+
 static void	print_env(char **environnement)
 {
-	ft_strdoubleiter(environnement,(void*)&ft_putendl);
+	ft_strdoubleiter(environnement, (void*)&ft_putendl);
 }
 
 static int	env_exec(char **argv, char ***environnement)
@@ -58,31 +59,30 @@ static void	env_u(char **argv, char **environ, char *path)
 	char	**tmp;
 	char	**environnement;
 
-	if (argv)
+	if (argv && argv[0])
 	{
-		if (argv[0])
+		if (!ft_strchr(argv[0], '='))
 		{
-			if (!ft_strchr(argv[0], '='))
+			if (!(environnement = copy_env(environ, ft_strlendouble(environ))))
+				return ;
+			if ((tmp = ft_strsplit(argv[0], '=')))
+				ft_unsetenv(tmp, &environnement);
+			if (environnement
+				&& ((i = env_exec(&argv[1], &environnement)) >= 0))
 			{
-				environnement = copy_env(environ, ft_strlendouble(environ));
-				if ((tmp = ft_strsplit(argv[0], '=')))
-					ft_unsetenv(tmp, &environnement);
-				if (environnement && ((i = env_exec(&argv[1], &environnement)) >= 0))
-				{
-					if (!argv[i + 1] || ft_strequ(argv[i + 1], "env"))
-						print_env(environnement);
-					else
-						exec(&argv[i + 1], &environnement, path);
-				}
-				ft_strdeldouble(environnement);
-				ft_strdeldouble(tmp);
+				if (!argv[i + 1] || ft_strequ(argv[i + 1], "env"))
+					print_env(environnement);
+				else
+					exec(&argv[i + 1], &environnement, path);
 			}
-			else
-				ft_putendl_fd("env : argument invalide", 2);
+			ft_strdeldouble(environnement);
+			ft_strdeldouble(tmp);
 		}
 		else
-			ft_putendl_fd("env : l'option requiert un argument -- u", 2);
+			ft_putendl_fd("env : argument invalide", 2);
 	}
+	else if (!argv[0])
+		ft_putendl_fd("env : l'option requiert un argument -- u", 2);
 }
 
 static void	env_only(char **argv, char **environ, char *path)
@@ -104,8 +104,6 @@ static void	env_only(char **argv, char **environ, char *path)
 	}
 }
 
-
-
 /**
 ** \brief	Affichage de l'environnement
 **			ou appel de fonction avec l'environnement.
@@ -121,6 +119,7 @@ static void	env_only(char **argv, char **environ, char *path)
 ** \param	argv -			Paramètres de env.
 ** \param	environnement -	Environnement.
 */
+
 void		env(char **argv, char **environnement)
 {
 	int		i;
@@ -129,7 +128,7 @@ void		env(char **argv, char **environnement)
 	if (argv && environnement)
 	{
 		if ((i = find_var("PATH", environnement)) >= 0)
-		{	
+		{
 			if (!(path = ft_strdup(environnement[i])))
 				ft_putendl_fd("minishell : erreur d'allocation", 2);
 		}
