@@ -16,6 +16,7 @@
 /*
 ** Ajoute un slash à la fin du path s'il n'y en a pas.
 */
+
 static char	*add_slash(char *path)
 {
 	int		len;
@@ -41,6 +42,7 @@ static char	*add_slash(char *path)
 /*
 ** Découpe le PATH pour obtenir le chemin vers un dossier d'exécutables.
 */
+
 static char	*cut_path(char *path)
 {
 	char	*tmp;
@@ -57,24 +59,28 @@ static char	*cut_path(char *path)
 	return (NULL);
 }
 
+static char	*new_or_old_path(char **environnement, char *old_path)
+{
+	int	i;
+
+	if (old_path)
+		return (old_path);
+	i = find_var("PATH", environnement);
+	return ((i >= 0) ? environnement[i] : NULL);
+}
+
 /*
 ** Cherche l'exécutable dans le PATH de l'environnement.
 */
+
 static int	search_exec(char **argv, char ***environnement, char *old_path)
 {
-	int		i;
 	char	*tmp;
 	char	*path;
 
 	if (argv && environnement)
 	{
-		if (!old_path)
-		{
-			i = find_var("PATH", environnement[0]);
-			path = ((i >= 0) ? environnement[0][i] : NULL);
-		}
-		else
-			path = old_path;
+		path = new_or_old_path(environnement[0], old_path);
 		if (path && (path = ft_strchr(path, '=')))
 			path = path + 1;
 		if (path)
@@ -107,7 +113,8 @@ static int	search_exec(char **argv, char ***environnement, char *old_path)
 ** \return	0 si l'exécutable a pu être trouvé et lancé
 **				ou une autre valeur sinon.
 */
-int	exec(char **argv, char ***environnement, char *path)
+
+int			exec(char **argv, char ***environnement, char *path)
 {
 	int		ret;
 	pid_t	f;
@@ -118,7 +125,8 @@ int	exec(char **argv, char ***environnement, char *path)
 			wait(NULL);
 		else
 		{
-			if (argv[0][0] && (argv[0][0] == '/' || ft_strnequ(argv[0], "./", 2)))
+			if (argv[0][0] &&
+					(argv[0][0] == '/' || ft_strnequ(argv[0], "./", 2)))
 				ret = execve(argv[0], argv, environnement[0]);
 			else
 				ret = search_exec(argv, environnement, path);
@@ -132,4 +140,3 @@ int	exec(char **argv, char ***environnement, char *path)
 	}
 	return (0);
 }
-

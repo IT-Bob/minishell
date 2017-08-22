@@ -16,7 +16,8 @@
 **
 ** \return	1 - Fin normale de la fonction.
 */
-static int incorrect_id(char *var)
+
+static int	incorrect_id(char *var)
 {
 	if (var)
 	{
@@ -36,7 +37,8 @@ static int incorrect_id(char *var)
 ** \return	0 si la suppression a été effectuée avec succès
 **				ou une autre valeur en cas d'erreur.
 */
-int	delete_var(char ***environnement, int pos)
+
+int			delete_var(char ***environnement, int pos)
 {
 	char	**environ;
 
@@ -68,7 +70,8 @@ int	delete_var(char ***environnement, int pos)
 ** \return	0 si la suppression a été effectuée avec succès
 **				ou une autre valeur en cas d'erreur.
 */
-int	ft_unsetenv(char **argv, char ***environnement)
+
+int			ft_unsetenv(char **argv, char ***environnement)
 {
 	int	i;
 	int	pos;

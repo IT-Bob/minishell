@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aguerin <marvin@42.fr>                     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/21 17:57:47 by aguerin           #+#    #+#             */
-/*   Updated: 2017/08/21 17:57:53 by aguerin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 /**
 ** \file	minishell.c
 ** \author	Alexis Guérin
@@ -18,8 +6,9 @@
 
 #include "minishell.h"
 #include "get_next_line.h"
+#include <signal.h>
 
-/*
+/**
 ** \brief	Lancement de fonction.
 **
 ** Cherche le builtin ou la fonction à appeler et la lance avec ses
@@ -35,6 +24,7 @@
 ** \return 0 -	Fin normale de la fonction appelée ou de sa recherche.
 ** \return 1 -	Quitter minishell.
 */
+
 static int	launch(char **argv, char ***environnement, int *exit)
 {
 	if (argv && argv[0])
@@ -57,10 +47,11 @@ static int	launch(char **argv, char ***environnement, int *exit)
 	return (0);
 }
 
-/*
+/**
 ** Sépare les différentes commandes et les lance.
 ** exit peut être initalisé à NULL.
 */
+
 static int	call_command(char *line, char ***environnement, int *exit)
 {
 	int		i;
@@ -87,16 +78,27 @@ static int	call_command(char *line, char ***environnement, int *exit)
 	return (quit);
 }
 
-/*
+/**
 ** Remplace les tabulations par des espaces.
 */
+
 static void	delete_tabulation(char *str)
 {
 	if (str)
 	{
-		 if (*str == '\t')
+		if (*str == '\t')
 			*str = ' ';
 	}
+}
+
+/**
+** 2  Ctrl-C
+*/
+
+static void	catch_signal(int signal)
+{
+	if (signal == 2)
+		;
 }
 
 /**
@@ -109,6 +111,7 @@ static void	delete_tabulation(char *str)
 ** \return	0 -	Arrêt normal du programme ou autre valeur donnée par exit
 **				(ft_exit()).
 */
+
 int			main(void)
 {
 	int			quit;
@@ -117,6 +120,7 @@ int			main(void)
 	char		**environnement;
 	extern char	**environ;
 
+	signal(SIGINT, catch_signal);
 	line = NULL;
 	quit = 0;
 	exit = 0;

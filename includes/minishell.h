@@ -18,11 +18,12 @@ void	echo(char **argv);
 void	env(char **argv, char **environnement);
 
 void	ft_strdoubleiter(char **doublestr, void (*f)(char *str));
+void	print_env(char **environnement);
+int		ft_strlendouble(char **doublestr);
 
 char	**copy_env(char **old_env, unsigned int len);
 char	**set_new_env(char **environ);
 char	**alloc_environnement(unsigned int size);
-int		ft_strlendouble(char **doublestr);
 int		find_var(char *var, char **environnement);
 char	*get_var(char *var, char **environnement);
 

@@ -6,7 +6,7 @@
 #    By: aguerin <aguerin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/06 17:18:16 by aguerin           #+#    #+#              #
-#    Updated: 2017/08/21 15:53:48 by aguerin          ###   ########.fr        #
+#    Updated: 2017/08/22 17:04:06 by aguerin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 
 # Options de compilation
 CC = @gcc
-CFLAGS = -Wall -Werror -Wextra -Wno-sign-compare -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -Wno-sign-compare #-g -fsanitize=address
 CPPFLAGS = -I $(INC_PATH) -I $(LIB_INC)
 CLIB = -L $(LIBFT) -lft
 
@@ -25,7 +25,7 @@ INC_FILE = minishell.h
 
 # Fichiers sources
 SRC_PATH = src/
-SRC_FILE = minishell.c libft.c variable.c
+SRC_FILE = minishell.c gen.c variable.c
 SRC_BUIL = cd.c echo.c environnement.c env.c exit.c setenv.c unsetenv.c
 SRC_EXEC = exec.c
 

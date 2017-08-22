@@ -8,6 +8,23 @@
 
 #include "minishell.h"
 
+static int	add_var(char *var, char *tmp, char **environ, char ***environnement)
+{
+	int		len;
+
+	len = ft_strlendouble(environnement[0]) + 1;
+	if ((environ = copy_env(environnement[0], len)))
+	{
+		if (!environ[len - 1] && !environ[len])
+			environ[len - 1] = (tmp ? ft_strdup(var) : ft_strjoin(var, "="));
+		ft_strdeldouble(environnement[0]);
+		environnement[0] = environ;
+	}
+	else
+		return (ft_putendl_fd("minishell : erreur d'allocation", 2));
+	return (0);
+}
+
 /**
 ** \brief	Modification de la variable d'environnement indiquée.
 **
@@ -17,41 +34,33 @@
 ** \return 0 si la modification a été effectuée avec succès
 **			ou une autre valeur en cas d'erreur.
 */
-int	alter_variable(char *var, char ***environnement)
+
+int			alter_variable(char *var, char ***environnement)
 {
 	int		i;
-	int		len;
+	int		ret;
 	char	*tmp;
 	char	**environ;
 
+	ret = 1;
 	if (var && environnement)
 	{
 		environ = environnement[0];
-		if ((tmp = ft_strchr(var, '=')))
-			if (!(tmp = ft_strsub(var, 0, tmp - var)))
-				return (ft_putendl_fd("minishell : erreur d'allocation", 2));
+		if ((tmp = ft_strchr(var, '='))
+			&& !(tmp = ft_strsub(var, 0, tmp - var)))
+			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
 		if (((i = find_var((tmp ? tmp : var), environ)) >= 0) && tmp)
 		{
+			ret = 0;
 			ft_strdel(&environ[i]);
-			environ[i] = ft_strdup(var);
+			if (!(environ[i] = ft_strdup(var)))
+				ret = ft_putendl_fd("minishell : erreur d'allocation", 2);
 		}
 		else if (i < 0)
-		{
-			len = ft_strlendouble(environnement[0]) + 1;
-			if ((environ = copy_env(environnement[0], len)))
-			{
-				if (!environ[len - 1] && !environ[len])
-					environ[len - 1] =
-							(tmp ? ft_strdup(var) : ft_strjoin(var, "="));
-				ft_strdeldouble(environnement[0]);
-				environnement[0] = environ;
-			}
-			else
-				return (ft_putendl_fd("minishell : erreur d'allocation", 2));
-		}
+			ret = add_var(var, tmp, environ, environnement);
 		ft_strdel(&tmp);
 	}
-	return (0);
+	return (ret);
 }
 
 /**
@@ -63,7 +72,8 @@ int	alter_variable(char *var, char ***environnement)
 ** \return	0 - Exécution normale de la commande ou une autre valeur
 **				en cas d'erreur.
 */
-int	ft_setenv(char **argv, char ***environnement)
+
+int			ft_setenv(char **argv, char ***environnement)
 {
 	int		i;
 	int		ret;

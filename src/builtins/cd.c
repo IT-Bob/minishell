@@ -10,14 +10,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-void	freepwd(char *pwd, char *oldpwd)
-{
-	if (pwd)
-		ft_strdel(&pwd);
-	if (oldpwd)
-	ft_strdel(&oldpwd);
-}
-
 static int	change_dir(char *path, char ***environnement)
 {
 	char		*pwd;

@@ -17,6 +17,7 @@
 **
 ** \return	L'environnement alloué ou NULL en cas d'erreur.
 */
+
 char		**alloc_environnement(unsigned int size)
 {
 	char	**environnement;
@@ -38,6 +39,7 @@ char		**alloc_environnement(unsigned int size)
 **
 ** \return	L'environnement copié ou NULL en cas d'erreur.
 */
+
 char		**copy_env(char **old_env, unsigned int len)
 {
 	int		size;
@@ -69,6 +71,7 @@ char		**copy_env(char **old_env, unsigned int len)
 /*
 ** Incrémente la variable SHLVL de 1 ou l'initialise à 0 si elle n'existe pas.
 */
+
 static void	increase_shlvl(char ***environnement)
 {
 	int		i;
@@ -107,7 +110,8 @@ static void	increase_shlvl(char ***environnement)
 **
 ** \return	Le nouvel environnement ou NULL en cas d'erreur.
 */
-static char	**create_env()
+
+static char	**create_env(void)
 {
 	int		size;
 	char	**environnement;
@@ -140,7 +144,8 @@ static char	**create_env()
 **
 ** \return	Le nouvel environnement ou NULL en cas d'erreur.
 */
-char	**set_new_env(char **environ)
+
+char		**set_new_env(char **environ)
 {
 	char	**environnement;
 

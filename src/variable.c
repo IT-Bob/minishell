@@ -17,7 +17,8 @@
 ** \return	Indice de la variable dans l'environnement ou -1 si celle-ci n'y
 **			est pas.
 */
-int	find_var(char *var, char **environnement)
+
+int		find_var(char *var, char **environnement)
 {
 	int	i;
 	int	len;
@@ -42,6 +43,7 @@ int	find_var(char *var, char **environnement)
 **
 ** \return	Valeur de la variable ou NULL si non trouvée.
 */
+
 char	*get_var(char *var, char **environnement)
 {
 	int		i;
@@ -57,4 +59,3 @@ char	*get_var(char *var, char **environnement)
 		}
 	return (variable);
 }
-

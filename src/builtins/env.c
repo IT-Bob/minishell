@@ -8,17 +8,6 @@
 
 #include "minishell.h"
 
-/**
-** \brief	Affiche l'environnement.
-**
-** \param	environnement -	Environnement à afficher.
-*/
-
-static void	print_env(char **environnement)
-{
-	ft_strdoubleiter(environnement, (void*)&ft_putendl);
-}
-
 static int	env_exec(char **argv, char ***environnement)
 {
 	int	i;
