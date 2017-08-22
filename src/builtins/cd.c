@@ -29,10 +29,10 @@ static int	change_dir(char *path, char ***environnement)
 		pwd = NULL;
 		if (!path[0])
 			path = ".";
-		if (!(oldpwd = ft_strjoin("OLDPWD=", pwd = getcwd(NULL, 0) ? pwd : "")))
+		if (!(oldpwd = ft_strjoin("OLDPWD=", (pwd = getcwd(NULL, 0)) ? pwd : "")))
 		{
 			ft_strdel(&pwd);
-			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
+			return (ft_putendl_fd("1 minishell : erreur d'allocation", 2));
 		}
 		ft_strdel(&pwd);
 		if (chdir(path))
@@ -41,17 +41,22 @@ static int	change_dir(char *path, char ***environnement)
 			buf.st_ino = 0;
 			lstat(path, &buf);
 			if ((buf.st_ino))
-				return (ft_putstr_fd("cd : permission non accordée : ", 2)
+			{
+				if (!S_ISDIR(buf.st_ino))
+					return (ft_putstr_fd("cd : pas un dossier : ", 2) + ft_putendl_fd(path, 2));
+				else
+					return (ft_putstr_fd("cd : permission non accordée : ", 2)
 						+ ft_putendl_fd(path, 2));
+			}
 			return (ft_putendl_fd(
 				"cd : erreur de changement de dossier", 2));
 		}
 		alter_variable(oldpwd, environnement);
 		ft_strdel(&oldpwd);
-		if (!(oldpwd = ft_strjoin("PWD=", pwd = getcwd(NULL, 0) ? pwd : "")))
+		if (!(oldpwd = ft_strjoin("PWD=", (pwd = getcwd(NULL, 0)) ? pwd : "")))
 		{
 			ft_strdel(&pwd);
-			return (ft_putendl_fd("minishell : erreur d'allocation", 2));
+			return (ft_putendl_fd("2 minishell : erreur d'allocation", 2));
 		}
 		alter_variable(oldpwd, environnement);
 		ft_strdel(&pwd);
