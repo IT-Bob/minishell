@@ -42,7 +42,7 @@ static int	change_dir(char *path, char ***environnement)
 			lstat(path, &buf);
 			if ((buf.st_ino))
 			{
-				if (!S_ISDIR(buf.st_ino))
+				if (!S_ISDIR(buf.st_mode))
 					return (ft_putstr_fd("cd : pas un dossier : ", 2) + ft_putendl_fd(path, 2));
 				else
 					return (ft_putstr_fd("cd : permission non accordée : ", 2)
