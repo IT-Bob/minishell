@@ -97,7 +97,9 @@ static void	delete_tabulation(char *str)
 
 static void	catch_signal(int signal)
 {
-	if (signal == 2)
+	if (signal == 2 && !g_fils)
+		ft_putstr("\n$> ");
+	else if (signal == 2 && g_fils)
 		ft_putendl("");
 }
 
@@ -117,25 +119,26 @@ int			main(void)
 	int			quit;
 	int			exit;
 	char		*line;
-	char		**environnement;
+	char		**env;
 	extern char	**environ;
 
 	signal(SIGINT, catch_signal);
 	line = NULL;
 	quit = 0;
 	exit = 0;
-	if (!(environnement = set_new_env(environ)))
+	if (!(env = set_new_env(environ)))
 		ft_putendl_fd("minishell : Erreur de création d'environnement", 2);
 	ft_putstr("$> ");
 	while (!quit && !exit && get_next_line(1, &line) > 0)
 	{
+		!env ? env = alloc_environnement(0) : NULL;
+		g_fils = 0;
 		ft_striter(line, &delete_tabulation);
-		if (!(quit = call_command(line, environnement ?
-				&environnement : NULL, &exit)))
+		if (!(quit = call_command(line, env ? &env : NULL, &exit)))
 			ft_putstr("$> ");
 		ft_strdel(&line);
 	}
-	ft_strdeldouble(environnement);
+	ft_strdeldouble(env);
 	ft_strdel(&line);
 	return (exit);
 }

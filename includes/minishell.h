@@ -11,6 +11,8 @@
 
 # include "libft.h"
 
+int		g_fils;
+
 int		cd(char **argv, char ***environnement);
 
 void	echo(char **argv);

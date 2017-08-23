@@ -121,6 +121,7 @@ int			exec(char **argv, char ***environnement, char *path)
 
 	if (argv && argv[0] && environnement)
 	{
+		g_fils = 1;
 		if ((f = fork()))
 			wait(NULL);
 		else
