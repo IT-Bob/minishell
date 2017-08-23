@@ -98,7 +98,7 @@ static void	delete_tabulation(char *str)
 static void	catch_signal(int signal)
 {
 	if (signal == 2)
-		;
+		ft_putendl("");
 }
 
 /**
