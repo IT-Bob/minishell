@@ -46,32 +46,29 @@ static void	env_u(char **argv, char **environ, char *path)
 {
 	int		i;
 	char	**tmp;
-	char	**environnement;
+	char	**env;
 
 	if (argv && argv[0])
 	{
 		if (!ft_strchr(argv[0], '='))
 		{
-			if (!(environnement = copy_env(environ, ft_strlendouble(environ))))
+			if (!(env = copy_env(environ, ft_strlendouble(environ))))
 				return ;
 			if ((tmp = ft_strsplit(argv[0], '=')))
-				ft_unsetenv(tmp, &environnement);
-			if (environnement
-				&& ((i = env_exec(&argv[1], &environnement)) >= 0))
+				ft_unsetenv(tmp, &env);
+			if (env && ((i = env_exec(&argv[1], &env)) >= 0))
 			{
 				if (!argv[i + 1] || ft_strequ(argv[i + 1], "env"))
-					print_env(environnement);
+					print_env(env);
 				else
-					exec(&argv[i + 1], &environnement, path);
+					exec(&argv[i + 1], &env, path);
 			}
-			ft_strdeldouble(environnement);
+			ft_strdeldouble(env);
 			ft_strdeldouble(tmp);
 		}
 		else
 			ft_putendl_fd("env : argument invalide", 2);
 	}
-	else if (!argv[0])
-		ft_putendl_fd("env : l'option requiert un argument -- u", 2);
 }
 
 static void	env_only(char **argv, char **environ, char *path)
@@ -128,7 +125,8 @@ void		env(char **argv, char **environnement)
 		else if (ft_strequ(argv[0], "-i"))
 			env_i(&argv[1], path);
 		else if (ft_strequ(argv[0], "-u"))
-			env_u(&argv[1], environnement, path);
+			(argv[1]) ? env_u(&argv[1], environnement, path) :
+				ft_putendl_fd("env : l'option requiert un argument -- u", 2);
 		else
 			env_only(argv, environnement, path);
 		ft_strdel(&path);
