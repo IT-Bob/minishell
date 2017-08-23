@@ -33,7 +33,7 @@ char		**alloc_environnement(unsigned int size)
 ** Alloue un nouvel environnement et y copie toutes les variables de l'ancien.\n
 ** Si la taille du nouvel environnement n'est pas suffisante, la copie n'est
 ** pas effectuée en entier.
-
+**
 ** \param	old_env -	L'environnement à copier dans le nouveau.
 ** \param	len -		La taille du nouvel environnement.
 **
