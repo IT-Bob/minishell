@@ -132,7 +132,6 @@ int			main(void)
 	while (!quit && !exit && get_next_line(1, &line) > 0)
 	{
 		!env ? env = alloc_environnement(0) : NULL;
-		g_fils = 0;
 		ft_striter(line, &delete_tabulation);
 		if (!(quit = call_command(line, env ? &env : NULL, &exit)))
 			ft_putstr("$> ");

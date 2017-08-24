@@ -138,6 +138,7 @@ int			exec(char **argv, char ***environnement, char *path)
 			}
 			exit(0);
 		}
+		g_fils = 0;
 	}
 	return (0);
 }
