@@ -73,13 +73,14 @@ static int	define_path(char **argv, char **path, char ***environ)
 		if (argv[0] && argv[1])
 			return (ft_putendl_fd("cd : trop d'arguments", 2));
 		else if ((!argv[0] || ft_strnequ(argv[0], "~", 1)) &&
-			!(*path = get_var("HOME", environ[0])))
+			!(*path = ft_strdup(get_var("HOME", environ[0]))))
 			return (ft_putendl_fd("cd : HOME non défini", 2));
 		else if (ft_strequ(argv[0], "-")
-					&& !(*path = get_var("OLDPWD", environ[0])))
+					&& !(*path = ft_strdup(get_var("OLDPWD", environ[0]))))
 			return (ft_putendl_fd("cd : OLDPWD non défini", 2));
 		else if (!(*path))
-			*path = argv[0];
+			if (!(*path = ft_strdup(argv[0])))
+				ft_putendl_fd("minishell : erreur d'allocation", 2);
 	}
 	return (0);
 }
@@ -106,12 +107,12 @@ int			cd(char **argv, char ***environ)
 		ret = define_path(argv, &path, environ);
 		if (!ret && argv[0] && argv[0][0] == '~')
 		{
-			path = ft_strjoin(path, &argv[0][1]);
+			path = ft_strfreejoin(path, &argv[0][1]);
 			ret = change_dir(path, environ);
-			ft_strdel(&path);
 		}
 		else if (!ret)
 			ret = change_dir(path, environ);
+		ft_strdel(&path);
 	}
 	return (ret);
 }
