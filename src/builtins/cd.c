@@ -112,7 +112,7 @@ int			cd(char **argv, char ***environ)
 		}
 		else if (!ret)
 		{
-			if (!(ret = change_dir(path, environ)) && ft_strequ(argv[0],"-"))
+			if (!(ret = change_dir(path, environ)) && ft_strequ(argv[0], "-"))
 				ft_putendl(path);
 		}
 		ft_strdel(&path);
