@@ -129,7 +129,7 @@ int			main(void)
 	if (!(env = set_new_env(environ)))
 		ft_putendl_fd("minishell : Erreur de création d'environnement", 2);
 	ft_putstr("$> ");
-	while (!quit && !exit && get_next_line(1, &line) > 0)
+	while (!quit && !exit && get_next_line(0, &line) > 0)
 	{
 		!env ? env = alloc_environnement(0) : NULL;
 		ft_striter(line, &delete_tabulation);
